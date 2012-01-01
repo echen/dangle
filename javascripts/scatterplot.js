@@ -11,8 +11,8 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
 	  return [xdata[i], ydata[i]];
 	});
 
-	var w             = 200,
-	    h             = 200,
+	var w             = 225,
+	    h             = 225,
 	    leftPadding   = 50,   // space for y-axis labels
 	    rightPadding  = 10,    // space at right (so the rightmost tick mark isn't cut off)
 	    bottomPadding = 30,   // space for x-axis labels
@@ -53,6 +53,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
   
 	// Add x-axis tick labels.	
 	xrule.append("text")
+	    .attr("class", "ticklabel")
 	    .attr("x", x)
 	    .attr("y", h + 3)
 	    .attr("dy", ".71em")
@@ -63,7 +64,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
 	vis.append("text")
 	  .attr("class", "axislabel")
 	  .attr("x", w * 0.5)
-	  .attr("y", h + 22)
+	  .attr("y", h + 24)
 	  .attr("text-anchor", "middle")
 	  .text(xlab);
 	  
@@ -88,6 +89,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
 
   // Add y-axis tick labels.
 	yrule.append("text")
+	    .attr("class", "ticklabel")
 	    .attr("x", -3)
 	    .attr("y", y)
 	    .attr("dy", ".35em")

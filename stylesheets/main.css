@@ -1,4 +1,8 @@
 body {
+  font: 12px sans-serif;
+}
+
+.ticklabel, .axislabel {
   font: 10px sans-serif;
 }
 
