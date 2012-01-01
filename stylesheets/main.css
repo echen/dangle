@@ -2,6 +2,10 @@ body {
   font: 10px sans-serif;
 }
 
+p {
+  padding-left: 50px;
+}
+
 path.dot {
   fill: white;
   stroke-width: 1.5px;
