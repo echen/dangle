@@ -1,0 +1,39 @@
+body {
+  font: 10px sans-serif;
+}
+
+path.dot {
+  fill: white;
+  stroke-width: 1.5px;
+}
+
+circle.dot {
+  fill: red;
+  stroke: black;
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+rect {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.x line, .y line {
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+
+span {
+  padding-top: 3px;
+}
+
+text.axislabel {
+  font-weight: bold;
+}
+
+.boundingbox {
+  stroke: #ccc;
+  shape-rendering: crispEdges;  
+}
