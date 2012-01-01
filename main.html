@@ -1,0 +1,76 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dangle</title>
+
+	<!-- Tangle -->
+	<script src="javascripts/Tangle/Tangle.js"></script>
+	<script src="javascripts/Tangle/TangleKit/mootools.js"></script>
+	<script src="javascripts/Tangle/TangleKit/sprintf.js"></script>
+	<script src="javascripts/Tangle/TangleKit/BVTouchable.js"></script>
+	<script src="javascripts/Tangle/TangleKit/TangleKit.js"></script>
+
+	<!-- d3 -->
+	<script src="javascripts/d3/d3.js"></script>	
+	<script src="javascripts/d3/d3.geom.js"></script>		
+
+	<!-- JQuery -->
+	<script src="javascripts/jquery/jquery-1.7.1.min.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="stylesheets/TangleKit.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+	
+	<!-- Custom javascripts -->
+	<script src="javascripts/helpers.js"></script>
+	<script src="javascripts/scatterplot.js"></script>	
+	<script src="javascripts/tangle-setup.js"></script>
+</head>
+
+<body>
+
+	<script>
+		$(document).ready(function() {
+			setUpTangle();
+		});
+		
+		// Data
+		var sharpes = d3.range(300).map(function(i) { 
+			i = i / 3; return i + Math.random() / 1000 + Math.random() + 30; 
+		});
+		var mortalityRates = d3.range(300).map(function(i) { 
+			i = i / 3; return ((i - 10) * (i - 45) * (i - 80) / 1000 + 30)/ 125; 
+		});
+		var chinchillas = d3.range(300).map(function(i) { 
+			i = i / 3; return i * (i-5) * (i-23) * (i-77) / 100000 + 30; 
+		});
+		var costs = d3.range(300).map(function(i) { 
+			i = i / 3; return (i - 92) * (i - 23) / 1000 + 30; 
+		});
+		
+		// Callback for d3 to update Tangle.
+		function tangleUpdater(i) {
+			tangle.setValue("sharpe", sharpes[i]);
+		}	
+		
+		makeScatterplot(sharpes, chinchillas, "Sharpe ratio", "chinchillas", tangleUpdater);
+		makeScatterplot(chinchillas, costs, "chinchillas", "cost (Rs)", tangleUpdater);		
+		makeScatterplot(costs, mortalityRates, "cost (Rs)", "mortality rate", tangleUpdater);		
+		makeScatterplot(sharpes, costs, "Sharpe ratio", "cost (Rs)", tangleUpdater);
+	</script>
+
+	<p>
+		With a 
+		<span data-var="sharpe" class="TKAdjustableNumber" data-format="%.3f" data-min="0" data-max="130" data-step="1"> Sharpe ratio</span>
+		, you will be able to buy 
+		<span data-var="chinchilla" class="TKAdjustableNumber" data-format="%.3f" data-min="0" data-max="190" data-step="1"> chinchillas</span> 
+		at 
+		<span data-var="mortalityRate" class="TKAdjustableNumber" data-format="%.3f" data-min="0" data-max="1" data-step=".01">% mortality rate</span>
+		, and it will cost you 
+		<span data-var="cost" class="TKAdjustableNumber" data-format="%.3f" data-min="0" data-max="33" data-step=".05"> rupees</span>
+		.
+	</p>
+	
+</body>
+
+</html>
