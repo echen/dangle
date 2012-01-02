@@ -43,5 +43,6 @@ text.axislabel {
 
 .boundingbox {
   stroke: #ccc;
+  stroke-width: 1.1;
   shape-rendering: crispEdges;  
 }
