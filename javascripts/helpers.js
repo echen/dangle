@@ -26,3 +26,16 @@ Array.prototype.indexOfGreatestLessThan = function(val) {
 	}
 	return minIndex;
 }
+
+function round(val, d) {
+  var power = Math.pow(10, d);
+  return Math.round(val * power) / power;
+}
+
+Array.prototype.max = function() {
+  return Math.max.apply(null, this)
+}
+
+Array.prototype.min = function() {
+  return Math.min.apply(null, this)
+}

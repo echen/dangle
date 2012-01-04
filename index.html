@@ -46,17 +46,21 @@
 		});
 		var costs = d3.range(300).map(function(i) { 
 			i = i / 3; return (i - 92) * (i - 23) / 1000 + 30; 
-		});
+		});	
 		
 		// Callback for d3 to update Tangle.
 		function tangleUpdater(i) {
 			tangle.setValue("sharpe", sharpes[i]);
-		}	
+		}
 		
-		makeScatterplot(sharpes, chinchillas, "Sharpe ratio", "chinchillas", tangleUpdater);
-		makeScatterplot(chinchillas, costs, "chinchillas", "cost (Rs)", tangleUpdater);		
-		makeScatterplot(costs, mortalityRates, "cost (Rs)", "mortality rate", tangleUpdater);		
-		makeScatterplot(sharpes, costs, "Sharpe ratio", "cost (Rs)", tangleUpdater);
+		function tangleUpdater2() {
+			return d3.range(sharpes.length).map(function(i) { return tangle.getValue("a") * sharpes[i] + tangle.getValue("b") * chinchillas[i] + tangle.getValue("c") * mortalityRates[i] + tangle.getValue("d")  + costs[i]; });
+		}
+		
+		makeScatterplot(sharpes, chinchillas, "Sharpe ratio", "chinchillas", tangleUpdater, tangleUpdater2);
+		makeScatterplot(chinchillas, costs, "chinchillas", "cost (Rs)", tangleUpdater, tangleUpdater2);		
+		makeScatterplot(costs, mortalityRates, "cost (Rs)", "mortality rate", tangleUpdater, tangleUpdater2);		
+		makeScatterplot(sharpes, costs, "Sharpe ratio", "cost (Rs)", tangleUpdater, tangleUpdater2);
 	</script>
 
 	<p>
@@ -69,7 +73,19 @@
 		and it will cost 
 		<span data-var="cost" class="TKAdjustableNumber" data-format="%.3f" data-min="0" data-max="33" data-step=".05"> rupees</span>.
 	</p>
-	
+
+	<p>
+		<span data-var="a" data-format="%.0f" class="TKNumberField"></span> * (Sharpe ratio)
+		+
+		<span data-var="b" data-format="%.2f" class="TKNumberField"></span> * (# chinchillas)		
+		+
+		<span data-var="c" data-format="%.2f" class="TKNumberField"></span> * (mortality rate)
+		+
+		<span data-var="d" data-format="%.2f" class="TKNumberField"></span> * (rupees)
+		=
+		<span data-var="metric" data-format="%.2f" ></span>
+	</p>
+
 </body>
 
 </html>
