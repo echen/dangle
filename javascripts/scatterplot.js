@@ -5,7 +5,9 @@
  * tangleUpdater: a function called when a new point is selected,
  *   in order to update the Tangle side of things, 
  */
-function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
+function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater, tangleUpdater2) {
+
+  var ramp = d3.scale.linear().domain([0, 1]).range(["white", "red"]);
   
 	var data = d3.range(xdata.length).map(function(i) {
 	  return [xdata[i], ydata[i]];
@@ -22,7 +24,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
 	    
 	var gridlineOpacity       = 0.7,
 	    pointRadius           = 1,
-	    selectedPointRadius   = 5;
+	    selectedPointRadius   = 50;
 
 	var vis = 
 	  d3.select("body")
@@ -142,7 +144,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
 	    .attr("index", function(d, i) { return i; })	    
 	    .attr("cx", function(d) { return x(d[0]); })
 	    .attr("cy", function(d) { return y(d[1]); })
-	    .attr("r", pointRadius);
+	    .attr("r", 5);      
 
   /*
    * Clip so that only mouseovers within the graph grid
@@ -188,7 +190,7 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
     .on("mouseover", function(d, i) {      
       // Unselect previous points.
       // TODO: It's probably better to use the mouseout event to do
-      // this instead, but I'm not sure how to make the point persist
+      // this instead, but then I'm not sure how to make the point persist
       // if you move outside the box...
       d3.selectAll("circle").attr("r", pointRadius);
       
@@ -198,6 +200,12 @@ function makeScatterplot(xdata, ydata, xlab, ylab, tangleUpdater) {
         
       // New point has been selected! Update Tangle as well.
       tangleUpdater(i);
+      // TODO: Hack, can't figure out what's going on.
+      /*var metrics = tangleUpdater2();
+      var min = metrics.min();
+      var diff = metrics.max() - metrics.min();      
+      circles.attr("fill", function(d, i) { return ramp((metrics[i] - min) / diff); });
+      circles.attr("size", function(d, i) { return ramp((metrics[i] - min) / diff * 10); });*/
     })
     /*.on("mouseout", function(d, i) {
       d3.selectAll("circle[index='" + i + "']")

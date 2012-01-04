@@ -1,11 +1,16 @@
 var tangle;
 
+
 function setUpTangle() {
 
 	tangle = new Tangle(document.body, {
 	  		
 		initialize: function () {
 			this.sharpe = sharpes[sharpes.length / 2];
+      this.a = 1;
+      this.b = 1;
+      this.c = -3;
+      this.d = -1;
 		},
 		
 		update: function () {
@@ -58,6 +63,13 @@ function setUpTangle() {
 
 			d3.selectAll("circle[index='" + i + "']")
         .attr("r", 5);
+        
+  		this._a = this.a;
+		  this._b = this.b;
+		  this._c = this.c;
+      this._d = this.d;
+        
+			this.metric = this.a * this.sharpe + this.b * this.chinchilla + this.c * this.mortalityRate + this.d * this.cost;
 		}
 	});
 }
